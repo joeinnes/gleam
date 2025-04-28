@@ -1,101 +1,98 @@
 @import 'tailwindcss';
-@plugin "daisyui" {
-	themes:
-		gleam --default,
-		gleam-dark --prefersdark;
-}
-
+@plugin "@tailwindcss/typography";
+@plugin "daisyui";
 @plugin "daisyui/theme" {
-	name: 'gleam';
+	name: 'brightmoments';
 	default: true;
 	prefersdark: false;
-	color-scheme: 'light';
+	color-scheme: light;
 
-	--color-base-100: oklch(98% 0.01 85); /* soft ivory */
-	--color-base-200: oklch(96% 0.01 85); /* pale cream */
-	--color-base-300: oklch(92% 0.015 85); /* warm beige */
-	--color-base-content: oklch(30% 0.015 275); /* soft graphite */
+	/* Base Colors */
+	--color-base-100: oklch(98% 0.01 85); /* Soft cream background from SVG #FDF6E9 */
+	--color-base-200: oklch(95% 0.04 83); /* Ground color from SVG #F9E6CB */
+	--color-base-300: oklch(93% 0.05 80); /* Slightly darker version of ground #F5DECB */
+	--color-base-content: oklch(47% 0.0315 199.09); /* Neutral dark grey/soft black */
 
-	--color-primary: oklch(75% 0.2 330); /* sunset pink */
-	--color-primary-content: oklch(98% 0.02 85); /* cream */
+	/* Primary - Coral Red (from flowers) */
+	--color-primary: oklch(76% 0.24 25); /* Coral from flowers #F79489 */
+	--color-primary-content: oklch(100% 0 0); /* White text #FFFFFF */
 
-	--color-secondary: oklch(85% 0.15 70); /* buttery yellow */
-	--color-secondary-content: oklch(28% 0.015 275);
+	/* Secondary - Sun Yellow */
+	--color-secondary: oklch(89% 0.2 80); /* Sun color #FFCB45 */
+	--color-secondary-content: oklch(52% 0.14 138); /* Dark text for contrast #5E7E3E */
 
-	--color-accent: oklch(80% 0.16 200); /* calm teal-blue */
-	--color-accent-content: oklch(28% 0.02 260);
+	/* Accent - Green (from stems) */
+	--color-accent: oklch(71% 0.12 142); /* Green stems #7EB77F */
+	--color-accent-content: oklch(100% 0 0); /* White text #FFFFFF */
 
-	--color-neutral: oklch(90% 0.015 85); /* light stone */
-	--color-neutral-content: oklch(30% 0.015 275);
+	/* Neutral */
+	--color-neutral: oklch(83% 0.11 65); /* Flower centers #F5B971 */
+	--color-neutral-content: oklch(52% 0.14 138); /* Green text #5E7E3E */
 
-	--color-info: oklch(78% 0.14 250); /* light sky blue */
-	--color-info-content: oklch(28% 0.02 250);
+	/* Info */
+	--color-info: oklch(92% 0.05 65); /* Subtle cloud border #FCE2CF */
+	--color-info-content: oklch(52% 0.14 138); /* Green text #5E7E3E */
 
-	--color-success: oklch(80% 0.15 145); /* mint green */
-	--color-success-content: oklch(28% 0.02 150);
+	/* Success */
+	--color-success: oklch(71% 0.12 142); /* Same as accent/stems #7EB77F */
+	--color-success-content: oklch(100% 0 0); /* White text #FFFFFF */
 
-	--color-warning: oklch(88% 0.16 90); /* sunshine yellow */
-	--color-warning-content: oklch(30% 0.02 70);
+	/* Warning */
+	--color-warning: oklch(83% 0.11 65); /* Flower centers #F5B971 */
+	--color-warning-content: oklch(52% 0.14 138); /* Green text #5E7E3E */
 
-	--color-error: oklch(70% 0.18 30); /* warm coral */
-	--color-error-content: oklch(98% 0.02 85);
+	/* Error */
+	--color-error: oklch(72% 0.17 25); /* Redder cheeks #F76F62 */
+	--color-error-content: oklch(100% 0 0); /* White text #FFFFFF */
 
-	--radius-selector: 0.75rem;
-	--radius-field: 0.5rem;
-	--radius-box: 1rem;
+	/* Styling */
+	--radius-selector: 1rem;
+	--radius-field: 100rem;
+	--radius-box: 0.5rem;
 	--size-selector: 0.25rem;
 	--size-field: 0.25rem;
 	--border: 1px;
-	--depth: 0.5;
+	--depth: 0;
 	--noise: 0;
 }
 
-@plugin "daisyui/theme" {
-	name: 'gleam-dark';
-	default: false;
-	prefersdark: true;
-	color-scheme: 'dark';
+@font-face {
+	font-family: 'Caprasimo';
+	src: url('/fonts/Caprasimo-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
 
-	--color-base-100: oklch(20% 0.015 270); /* charcoal background */
-	--color-base-200: oklch(16% 0.015 270);
-	--color-base-300: oklch(12% 0.015 270);
-	--color-base-content: oklch(96% 0.03 100); /* soft yellowish text */
+@font-face {
+	font-family: 'Nunito';
+	src: url('/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+	font-weight: 200 1000;
+	font-style: normal;
+	font-display: swap;
+}
 
-	--color-primary: oklch(95% 0.04 100); /* soft yellow */
-	--color-primary-content: oklch(18% 0.015 270); /* charcoal */
+@theme {
+	--font-display:
+		Caprasimo, 'Cooper Black', Superclarendon, 'Bookman Old Style', 'URW Bookman', 'URW Bookman L',
+		'Georgia Pro', Georgia, serif;
+	--default-font-family:
+		'Nunito', ui-rounded, 'Hiragino Maru Gothic ProN', Quicksand, Comfortaa, Manjari,
+		'Arial Rounded MT', 'Arial Rounded MT Bold', Calibri, source-sans-pro, sans-serif;
+	--font-cursive:
+		'SignPainter', 'Segoe Print', 'Bradley Hand', Chilanka, TSCu_Comic, casual, cursive;
+}
+input,
+input,
+textarea {
+	font-size: max(16px, 1em);
+}
 
-	--color-secondary: oklch(85% 0.08 90); /* pale gold */
-	--color-secondary-content: oklch(18% 0.015 270);
-
-	--color-accent: oklch(78% 0.08 75); /* muted orange-yellow */
-	--color-accent-content: oklch(20% 0.015 270);
-
-	--color-neutral: oklch(10% 0.005 270); /* near-black */
-	--color-neutral-content: oklch(95% 0.03 100);
-
-	--color-info: oklch(78% 0.15 240); /* gentle blue */
-	--color-info-content: oklch(20% 0.015 270);
-
-	--color-success: oklch(80% 0.15 145); /* calming green */
-	--color-success-content: oklch(18% 0.015 270);
-
-	--color-warning: oklch(85% 0.18 90); /* mellow yellow */
-	--color-warning-content: oklch(18% 0.015 270);
-
-	--color-error: oklch(75% 0.18 25); /* soft red */
-	--color-error-content: oklch(18% 0.015 270);
-
-	--radius-selector: 0.5rem;
-	--radius-field: 0.25rem;
-	--radius-box: 0.75rem;
-	--size-selector: 0.25rem;
-	--size-field: 0.25rem;
-	--border: 1px;
-	--depth: 0.5;
-	--noise: 0.01;
+label,
+input {
+	@apply text-base-content;
 }
 
 :root {
-	--font-serif: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
-	--default-font-family: var(--font-serif);
+	scrollbar-gutter: stable;
 }

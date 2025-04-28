@@ -1,85 +1,98 @@
-<div class="dock">
-	<button>
-		<svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-			><g fill="currentColor" stroke-linejoin="miter" stroke-linecap="butt"
-				><polyline
-					points="1 11 12 2 23 11"
-					fill="none"
-					stroke="currentColor"
-					stroke-miterlimit="10"
-					stroke-width="2"
-				></polyline><path
-					d="m5,13v7c0,1.105.895,2,2,2h10c1.105,0,2-.895,2-2v-7"
-					fill="none"
-					stroke="currentColor"
-					stroke-linecap="square"
-					stroke-miterlimit="10"
-					stroke-width="2"
-				></path><line
-					x1="12"
-					y1="22"
-					x2="12"
-					y2="18"
-					fill="none"
-					stroke="currentColor"
-					stroke-linecap="square"
-					stroke-miterlimit="10"
-					stroke-width="2"
-				></line></g
-			></svg
-		>
-		<span class="dock-label">Home</span>
-	</button>
+<script lang="ts">
+	import { useAccount, usePasskeyAuth } from 'jazz-svelte';
+	import AuthModal from './AuthModal.svelte';
+	import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 
-	<button class="dock-active">
-		<svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-			><g fill="currentColor" stroke-linejoin="miter" stroke-linecap="butt"
-				><polyline
-					points="3 14 9 14 9 17 15 17 15 14 21 14"
-					fill="none"
-					stroke="currentColor"
-					stroke-miterlimit="10"
-					stroke-width="2"
-				></polyline><rect
-					x="3"
-					y="3"
-					width="18"
-					height="18"
-					rx="2"
-					ry="2"
-					fill="none"
-					stroke="currentColor"
-					stroke-linecap="square"
-					stroke-miterlimit="10"
-					stroke-width="2"
-				></rect></g
-			></svg
-		>
-		<span class="dock-label">Inbox</span>
-	</button>
+	let { url } = $derived(page);
 
-	<button>
-		<svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-			><g fill="currentColor" stroke-linejoin="miter" stroke-linecap="butt"
-				><circle
-					cx="12"
-					cy="12"
-					r="3"
-					fill="none"
-					stroke="currentColor"
-					stroke-linecap="square"
-					stroke-miterlimit="10"
-					stroke-width="2"
-				></circle><path
-					d="m22,13.25v-2.5l-2.318-.966c-.167-.581-.395-1.135-.682-1.654l.954-2.318-1.768-1.768-2.318.954c-.518-.287-1.073-.515-1.654-.682l-.966-2.318h-2.5l-.966,2.318c-.581.167-1.135.395-1.654.682l-2.318-.954-1.768,1.768.954,2.318c-.287.518-.515,1.073-.682,1.654l-2.318.966v2.5l2.318.966c.167.581.395,1.135.682,1.654l-.954,2.318,1.768,1.768,2.318-.954c.518.287,1.073.515,1.654.682l.966,2.318h2.5l.966-2.318c.581-.167,1.135-.395,1.654-.682l2.318.954,1.768-1.768-.954-2.318c.287-.518.515-1.073.682-1.654l2.318-.966Z"
-					fill="none"
-					stroke="currentColor"
-					stroke-linecap="square"
-					stroke-miterlimit="10"
-					stroke-width="2"
-				></path></g
+	let { me } = $derived(
+		useAccount({
+			resolve: {
+				profile: true
+			}
+		})
+	);
+	const auth = $derived(usePasskeyAuth({ appName: 'Gleam' }));
+	let authModal = $state<HTMLDialogElement>();
+</script>
+
+<div class="dock text-primary">
+	<a href="/" class:dock-active={url.pathname === '/'}>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+			><title>wheel_fill</title><g id="wheel_fill" fill="none" fill-rule="evenodd"
+				><path
+					d="M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z"
+				/><path
+					fill="currentColor"
+					d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m-1.47 13.197-.747 1.12c-.317.476-.502 1.364.196 1.974.415.363 1.075.71 2.021.71s1.606-.347 2.021-.71c.698-.61.513-1.498.196-1.973l-.747-1.121a1.767 1.767 0 0 0-2.94 0m6.262-3.971-1.297.364a1.767 1.767 0 0 0-.909 2.796l.835 1.057c.354.448 1.142.9 1.938.424.473-.283 1.007-.803 1.3-1.703.292-.9.166-1.635-.051-2.142-.364-.853-1.267-.951-1.816-.796m-9.584 0c-.55-.155-1.452-.057-1.816.796-.217.507-.343 1.241-.05 2.142.292.9.825 1.42 1.3 1.703.748.447 1.49.074 1.87-.345l.067-.079.835-1.057a1.767 1.767 0 0 0-.772-2.752l-.137-.044-1.297-.365Zm.677-4.89c-.766.556-1.095 1.224-1.218 1.763-.206.903.466 1.513 1.001 1.711l1.264.468A1.767 1.767 0 0 0 11.31 8.55l-.054-1.347c-.023-.57-.395-1.398-1.318-1.48-.55-.05-1.288.057-2.053.613m8.23 0c-.765-.556-1.503-.663-2.052-.614-.87.078-1.25.816-1.311 1.378l-.008.103-.054 1.347a1.767 1.767 0 0 0 2.247 1.77l.131-.042 1.264-.468c.535-.198 1.207-.808 1.001-1.712-.122-.538-.452-1.206-1.218-1.762"
+				/></g
 			></svg
 		>
-		<span class="dock-label">Settings</span>
+		<span class="dock-label">Moments</span>
+	</a>
+
+	<a href="/moment/new" class:dock-active={url.pathname === '/moment/new'}>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+			><title>add_circle_fill</title><g id="add_circle_fill" fill="none"
+				><path
+					d="M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z"
+				/><path
+					fill="currentColor"
+					d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 5a1 1 0 0 0-.993.883L11 8v3H8a1 1 0 0 0-.117 1.993L8 13h3v3a1 1 0 0 0 1.993.117L13 16v-3h3a1 1 0 0 0 .117-1.993L16 11h-3V8a1 1 0 0 0-1-1"
+				/></g
+			></svg
+		>
+		<span class="dock-label">Create</span>
+	</a>
+
+	<a href="/summary" class:dock-active={url.pathname === '/summary'}>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+			><title>bling_fill</title><g id="bling_fill" fill="none"
+				><path
+					d="M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z"
+				/><path
+					fill="currentColor"
+					d="M10.077 2.614c.338-.76 1.379-.797 1.787-.114l.059.114 1.042 2.345a11 11 0 0 0 4.337 4.931l.322.189 1.85 1.04a1.01 1.01 0 0 1 .109 1.692l-.108.07-1.851 1.04a11 11 0 0 0-4.502 4.782l-.157.338-1.042 2.345c-.338.76-1.379.797-1.787.114l-.059-.114-1.042-2.345a11 11 0 0 0-4.337-4.931l-.322-.189-1.85-1.04a1.01 1.01 0 0 1-.109-1.692l.108-.07 1.851-1.04a11 11 0 0 0 4.502-4.782l.157-.338zm9.144-.493a5.732 5.732 0 0 0 2.414 2.674c.16.09.16.32 0 .41A5.732 5.732 0 0 0 19.22 7.88a.241.241 0 0 1-.44 0 5.732 5.732 0 0 0-2.415-2.674.236.236 0 0 1 0-.41A5.732 5.732 0 0 0 18.78 2.12a.241.241 0 0 1 .44 0Z"
+				/></g
+			></svg
+		>
+		<span class="dock-label">Summary</span>
+	</a>
+
+	<button
+		class:dock-active={url.pathname === '/profile'}
+		onclick={() => {
+			if (auth.state === 'anonymous') {
+				authModal?.showModal();
+			} else {
+				goto('/profile');
+			}
+		}}
+	>
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+			><title>user_3_fill</title><g id="user_3_fill" fill="none"
+				><path
+					d="M24 0v24H0V0zM12.593 23.258l-.011.002-.071.035-.02.004-.014-.004-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093c.012.004.023 0 .029-.008l.004-.014-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014-.034.614c0 .012.007.02.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z"
+				/><path
+					fill="currentColor"
+					d="M12 13c2.396 0 4.575.694 6.178 1.672.8.488 1.484 1.064 1.978 1.69.486.615.844 1.351.844 2.138 0 .845-.411 1.511-1.003 1.986-.56.45-1.299.748-2.084.956-1.578.417-3.684.558-5.913.558s-4.335-.14-5.913-.558c-.785-.208-1.524-.506-2.084-.956C3.41 20.01 3 19.345 3 18.5c0-.787.358-1.523.844-2.139.494-.625 1.177-1.2 1.978-1.69C7.425 13.695 9.605 13 12 13m0-11a5 5 0 1 1 0 10 5 5 0 0 1 0-10"
+				/></g
+			></svg
+		>
+
+		<span class="dock-label">{me?.profile?.name?.split(' ')[0] || ''}</span>
 	</button>
 </div>
+<AuthModal bind:authModal />
+
+<style lang="postcss">
+	@reference 'tailwindcss';
+	a svg,
+	button svg {
+		opacity: 0.4;
+	}
+	a.dock-active svg {
+		opacity: 1;
+	}
+</style>

@@ -2,7 +2,6 @@ import { Account, Profile, co, CoList, CoMap, ImageDefinition, Group } from 'jaz
 
 export class GleamProfile extends Profile {
 	name = co.string;
-	avatar = co.optional.ref(ImageDefinition);
 }
 
 export class PhotoList extends CoList.Of(co.ref(ImageDefinition)) {}
@@ -17,6 +16,7 @@ export class Moment extends CoMap {
 export class ListOfMoments extends CoList.Of(co.ref(Moment)) {}
 export class GleamRoot extends CoMap {
 	myMoments = co.ref(ListOfMoments);
+	apiKey = co.optional.string;
 }
 
 export class GleamAccount extends Account {
@@ -28,13 +28,11 @@ export class GleamAccount extends Account {
 		if (this.root === undefined) {
 			console.log(`Migrating account ${this.id}: creating root node`);
 
-			this.root = GleamRoot.create(
-				{
-					myMoments: ListOfMoments.create([], { owner: this })
-				},
-				{ owner: this }
-			);
+			this.root = GleamRoot.create({
+				myMoments: ListOfMoments.create([])
+			});
 		}
+
 		if (this.profile === undefined) {
 			const profileGroup = Group.create();
 			profileGroup.addMember('everyone', 'reader');

@@ -1,38 +1,99 @@
-# sv
+# Gleam ✨
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A personal journaling Progressive Web App (PWA) designed to help you capture and reflect on life's moments. Gleam allows you to create entries, upload photos, and leverages AI to generate insightful summaries.
 
-## Creating a project
+Built with SvelteKit and powered by Jazz for real-time synchronization.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Features
 
-```bash
-# create a new project in the current directory
-npx sv create
+*   **Moment Creation:** Easily create and manage journal entries.
+*   **Photo Uploads:** Attach photos to your moments (powered by `jazz-browser-media-images`).
+*   **AI Summaries:** Get AI-generated summaries for your moments using Google Generative AI.
+*   **Real-time Sync:** Data is synchronized in real-time across devices using Jazz.
+*   **PWA Enabled:** Install Gleam on your device for offline access and a native app-like experience.
+*   **Markdown Support:** Write your entries using Markdown (rendered with `marked`, sanitized with `dompurify`).
+*   **Modern UI:** Styled with Tailwind CSS and DaisyUI.
 
-# create a new project in my-app
-npx sv create my-app
+## Technology Stack
+
+*   **Framework:** SvelteKit
+*   **Language:** TypeScript, Svelte 5
+*   **Data & Sync:** Jazz (`jazz-svelte`, `jazz-tools`, `jazz-browser-media-images`)
+*   **AI:** Google Generative AI (`@google/generative-ai`)
+*   **Styling:** Tailwind CSS, DaisyUI (`@tailwindcss/vite`, `@tailwindcss/typography`)
+*   **UI Components:** Custom Svelte components
+*   **Build Tool:** Vite
+*   **Linting/Formatting:** ESLint, Prettier
+
+## Project Structure
+
+```
+/Users/joe/WebDev/gleam
+├── src/
+│   ├── app.css           # Global styles
+│   ├── app.d.ts          # Global type definitions
+│   ├── app.html          # Main HTML template
+│   ├── lib/              # Reusable components, utilities, schema
+│   │   ├── components/   # Svelte components (e.g., Dock)
+│   │   ├── schema.ts     # Jazz data schema (GleamAccount)
+│   │   └── utils/        # Utility functions
+│   └── routes/           # Application pages and layouts
+│       ├── +layout.svelte  # Main layout (includes JazzProvider)
+│       ├── +page.svelte    # Home page
+│       ├── moment/         # Routes related to moments
+│       ├── profile/        # Routes related to user profile
+│       └── summary/        # Routes related to summaries
+├── static/             # Static assets (icons, fonts, manifest)
+├── package.json        # Project metadata and dependencies
+├── svelte.config.js    # SvelteKit configuration
+├── vite.config.ts      # Vite configuration
+├── tsconfig.json       # TypeScript configuration
+└── README.md           # This file
 ```
 
-## Developing
+## Getting Started
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Prerequisites
 
-```bash
-npm run dev
+*   Node.js (LTS version recommended)
+*   pnpm (`npm install -g pnpm`)
+*   A running Jazz peer instance. You can run one locally using `npx jazz-nodejs`, which will be accessible at ws://localhost:4200
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+### Installation
 
-## Building
+1.  **Clone the repository (if you haven't already):**
+    ```bash
+    git clone <your-repository-url>
+    cd gleam
+    ```
 
-To create a production version of your app:
+2.  **Install dependencies:**
+    ```bash
+    pnpm install
+    ```
 
-```bash
-npm run build
-```
+3.  **Environment Variables:**
+    *   Create a `.env` file in the root of your project.
+    *   Add the Jazz sync peer using PUBLIC_API_URL
 
-You can preview the production build with `npm run preview`.
+### Running the Application
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+1.  **Start the development server:**
+    ```bash
+    pnpm run dev
+    ```
+    This will start the Vite development server, typically available at `http://localhost:5173`.
+
+2.  **Build for production:**
+    ```bash
+    pnpm run build
+    ```
+
+3.  **Preview the production build:**
+    ```bash
+    pnpm run preview
+    ```
+
+## Contributing
+
+Contributions are welcome! Please follow standard coding practices and ensure linting and formatting checks pass (`pnpm run lint`, `pnpm run format`).
