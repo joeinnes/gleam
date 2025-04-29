@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
-@plugin "daisyui";
+@plugin "daisyui" {
+	themes:
+		brightmoments --default,
+		brightmoments-dark --prefersdark;
+}
 @plugin "daisyui/theme" {
 	name: 'brightmoments';
 	default: true;
@@ -46,6 +50,61 @@
 	--color-error-content: oklch(100% 0 0); /* White text #FFFFFF */
 
 	/* Styling */
+	--radius-selector: 1rem;
+	--radius-field: 100rem;
+	--radius-box: 0.5rem;
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+	--border: 1px;
+	--depth: 0;
+	--noise: 0;
+}
+
+@plugin "daisyui/theme" {
+	name: 'brightmoments-dark';
+	default: false;
+	prefersdark: true;
+	color-scheme: dark;
+
+	/* Base Colors - Dark Mode */
+	--color-base-100: oklch(20% 0.01 85); /* Dark background */
+	--color-base-200: oklch(25% 0.02 83); /* Slightly lighter dark background */
+	--color-base-300: oklch(30% 0.03 80); /* Accent dark background */
+	--color-base-content: oklch(95% 0.01 199.09); /* Light text for dark mode */
+
+	/* Primary - Coral Red (from flowers) - Darker but still vibrant */
+	--color-primary: oklch(65% 0.22 25); /* Darker coral for dark mode */
+	--color-primary-content: oklch(100% 0 0); /* White text #FFFFFF */
+
+	/* Secondary - Sun Yellow - Darker but still warm */
+	--color-secondary: oklch(75% 0.18 80); /* Darker sun color for dark mode */
+	--color-secondary-content: oklch(20% 0.05 138); /* Darker text for contrast */
+
+	/* Accent - Green (from stems) - Darker but still natural */
+	--color-accent: oklch(60% 0.1 142); /* Darker green stems for dark mode */
+	--color-accent-content: oklch(100% 0 0); /* White text #FFFFFF */
+
+	/* Neutral - Darker flower centers */
+	--color-neutral: oklch(70% 0.09 65); /* Darker flower centers for dark mode */
+	--color-neutral-content: oklch(95% 0.05 138); /* Lighter green text for dark mode */
+
+	/* Info - Darker subtle cloud */
+	--color-info: oklch(40% 0.04 65); /* Darker subtle cloud for dark mode */
+	--color-info-content: oklch(95% 0.05 138); /* Lighter green text for dark mode */
+
+	/* Success - Same as accent/stems but darker */
+	--color-success: oklch(60% 0.1 142); /* Same as accent/stems but darker */
+	--color-success-content: oklch(100% 0 0); /* White text #FFFFFF */
+
+	/* Warning - Darker flower centers */
+	--color-warning: oklch(70% 0.09 65); /* Darker flower centers for dark mode */
+	--color-warning-content: oklch(95% 0.05 138); /* Lighter green text for dark mode */
+
+	/* Error - Darker redder cheeks */
+	--color-error: oklch(62% 0.15 25); /* Darker redder cheeks for dark mode */
+	--color-error-content: oklch(100% 0 0); /* White text #FFFFFF */
+
+	/* Styling - Same as light theme */
 	--radius-selector: 1rem;
 	--radius-field: 100rem;
 	--radius-box: 0.5rem;
