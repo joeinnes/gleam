@@ -28,7 +28,7 @@
 	<div class="modal-box">
 		<button
 			type="button"
-			onclick={authModal?.close()}
+			onclick={() => authModal?.close()}
 			class="btn btn-circle btn-sm absolute top-4 right-4"
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4"
