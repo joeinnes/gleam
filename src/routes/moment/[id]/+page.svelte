@@ -62,13 +62,14 @@
 						{@const photosLength = moment.photos?.length || 0}
 						<div class="carousel-item relative w-full" id="item-{i + 1}">
 							<Photo img={photo} width={cw} />
-							<!-- Delete button for individual photo -->
-							<button
-								class="btn btn-circle btn-error btn-xs absolute top-2 right-2 z-10"
-								onclick={() => requestDeletePhoto(i)}
-							>
-								✕
-							</button>
+							{#if isEditing}
+								<button
+									class="btn btn-circle btn-error btn-xs absolute top-2 right-2 z-10"
+									onclick={() => requestDeletePhoto(i)}
+								>
+									✕
+								</button>
+							{/if}
 							{#if photosLength > 1}
 								<div
 									class="absolute top-1/2 right-1 left-1 flex -translate-y-1/2 transform justify-between"

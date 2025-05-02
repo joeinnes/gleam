@@ -18,7 +18,7 @@
 	--color-base-content: oklch(47% 0.0315 199.09); /* Neutral dark grey/soft black */
 
 	/* Primary - Coral Red (from flowers) */
-	--color-primary: oklch(76% 0.24 25); /* Coral from flowers #F79489 */
+	--color-primary: oklch(76% 0.13 25); /* Coral from flowers #F79489 */
 	--color-primary-content: oklch(100% 0 0); /* White text #FFFFFF */
 
 	/* Secondary - Sun Yellow */
