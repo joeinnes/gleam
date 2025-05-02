@@ -4,6 +4,7 @@
 	import { Moment, PhotoList } from '$lib/schema';
 	import { useAccount } from 'jazz-svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
+	import { goto } from '$app/navigation';
 	let { addModal = $bindable() } = $props();
 	let { me } = $derived(
 		useAccount({
@@ -93,6 +94,7 @@
 			form.reset();
 			addModal?.close();
 			accumulatedFiles = [];
+			goto('/');
 		} catch (error) {
 			console.error('Error saving moment:', error);
 			// Handle error appropriately, maybe show a message to the user
