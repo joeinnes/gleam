@@ -71,8 +71,6 @@
 			const content = formData.get('content') as string;
 			const dateString = formData.get('date') as string;
 			const isPrivate = (formData.get('isPrivate') as string) === 'on';
-			console.log(isPrivate);
-			return;
 			const date = new Date(dateString);
 			const momentGroup = Group.create();
 			const photoListGroup = Group.create();
