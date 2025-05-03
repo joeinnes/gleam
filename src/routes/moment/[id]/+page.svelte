@@ -107,6 +107,15 @@
 				{#if isEditing}
 					<textarea class="textarea textarea-bordered w-full rounded-xl" bind:value={moment.content}
 					></textarea>
+					<label class="label mt-2 cursor-pointer justify-start gap-4">
+						<input
+							type="checkbox"
+							name="isPrivate"
+							class="toggle checked:bg-primary checked:text-primary-content checked:border-primary !mt-0 transition-colors"
+							bind:checked={moment.isPrivate}
+						/>
+						<p>Private memory</p>
+					</label>
 					<div class="card-actions justify-end gap-2">
 						<button class="btn btn-sm btn-ghost" onclick={() => (isEditing = false)}>Cancel</button>
 						<button class="btn btn-sm btn-primary" onclick={() => (isEditing = false)}>Save</button>
