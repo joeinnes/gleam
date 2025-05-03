@@ -1,4 +1,4 @@
-<div class="grid h-full place-items-center">
+<div class="flex h-full flex-col justify-between">
 	<h1 class="text-primary font-cursive text-center text-6xl font-medium">
 		Start capturing your brightest moments!
 	</h1>

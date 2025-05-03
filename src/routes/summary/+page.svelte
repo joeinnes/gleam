@@ -49,7 +49,7 @@
 
 		const moments =
 			me?.root.myMoments.filter((moment) => {
-				if (!moment?.date || moment.isDeleted) return false;
+				if (!moment?.date || moment.isDeleted || moment.isPrivate) return false;
 				const startMatch = !startDate || moment.date >= new Date(startDate);
 				const endMatch = !endDateBoundary || moment.date < endDateBoundary;
 				return startMatch && endMatch;

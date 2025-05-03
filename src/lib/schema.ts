@@ -11,6 +11,7 @@ export class Moment extends CoMap {
 	content = co.string;
 	photos = co.optional.ref(PhotoList);
 	isDeleted = co.boolean;
+	isPrivate = co.optional.boolean;
 }
 
 export class ListOfMoments extends CoList.Of(co.ref(Moment)) {}

@@ -70,8 +70,10 @@
 			const formData = new FormData(form);
 			const content = formData.get('content') as string;
 			const dateString = formData.get('date') as string;
+			const isPrivate = (formData.get('isPrivate') as string) === 'on';
+			console.log(isPrivate);
+			return;
 			const date = new Date(dateString);
-			const isDeleted = false;
 			const momentGroup = Group.create();
 			const photoListGroup = Group.create();
 			photoListGroup.extend(momentGroup);
@@ -87,7 +89,8 @@
 				date,
 				content,
 				photos: photoList,
-				isDeleted
+				isDeleted: false,
+				isPrivate
 			};
 			const moment = Moment.create(momentObj, { owner: momentGroup });
 			me?.root?.myMoments?.push(moment);
@@ -129,6 +132,16 @@
 			required
 		/></label
 	>
+
+	<label class="label">
+		<input
+			type="checkbox"
+			name="isPrivate"
+			class="toggle checked:bg-primary checked:text-primary-content checked:border-primary !mt-0 transition-colors"
+		/>
+		<p>Private memory</p>
+	</label>
+
 	<label>
 		<!-- Hidden file input, use on:change -->
 		<input
@@ -144,7 +157,9 @@
 			class="bg-base-200 hover:bg-base-200 text-base-content place-it1ems-center mb-2 grid aspect-[16/9] w-full cursor-pointer rounded-xl text-3xl"
 			onclick={() => fileInput?.click()}
 		>
-			<div class="grid place-items-center opacity-60 transition-opacity hover:opacity-100">
+			<div
+				class="flex flex-col items-center justify-center opacity-60 transition-opacity hover:opacity-100"
+			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="30%" height="auto" viewBox="0 0 24 24"
 					><title>camera_2_fill</title><g id="camera_2_fill" fill="none"
 						><path
