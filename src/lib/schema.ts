@@ -6,6 +6,14 @@ export class GleamProfile extends Profile {
 
 export class PhotoList extends CoList.Of(co.ref(ImageDefinition)) {}
 
+export class Summary extends CoMap {
+	hash = co.string;
+	startDate = co.Date;
+	endDate = co.Date;
+	content = co.string;
+}
+export class ListOfSummaries extends CoList.Of(co.ref(Summary)) {}
+
 export class Moment extends CoMap {
 	date = co.Date;
 	content = co.string;
@@ -17,6 +25,7 @@ export class Moment extends CoMap {
 export class ListOfMoments extends CoList.Of(co.ref(Moment)) {}
 export class GleamRoot extends CoMap {
 	myMoments = co.ref(ListOfMoments);
+	mySummaries = co.ref(ListOfSummaries);
 	apiKey = co.optional.string;
 }
 
@@ -30,7 +39,8 @@ export class GleamAccount extends Account {
 			console.log(`Migrating account ${this.id}: creating root node`);
 
 			this.root = GleamRoot.create({
-				myMoments: ListOfMoments.create([])
+				myMoments: ListOfMoments.create([]),
+				mySummaries: ListOfSummaries.create([])
 			});
 		}
 
@@ -46,6 +56,10 @@ export class GleamAccount extends Account {
 		if (root.myMoments === undefined) {
 			console.log(`Migrating account root ${root.id}: creating myMoments list`);
 			root.myMoments = ListOfMoments.create([], { owner: this });
+		}
+		if (root.mySummaries === undefined) {
+			console.log(`Migrating account root ${root.id}: creating mySummaries list`);
+			root.mySummaries = ListOfSummaries.create([], { owner: this });
 		}
 	}
 }

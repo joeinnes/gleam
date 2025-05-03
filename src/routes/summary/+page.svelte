@@ -4,11 +4,12 @@
 	import { generateSummary } from '$lib/utils/getGenAISummary';
 	import { marked } from 'marked';
 	import DOMPurify from 'dompurify';
+	import { Summary } from '$lib/schema';
 
 	let { me } = $derived(
 		useAccount({
 			resolve: {
-				root: { myMoments: { $each: true } }
+				root: { myMoments: { $each: true }, mySummaries: true }
 			}
 		})
 	);
@@ -68,10 +69,32 @@
 			return;
 		}
 
+		const idString = moments.reduce((acc, moment) => (acc += moment.id), '');
+		const bytes = new TextEncoder().encode(idString);
+		const digest = await window.crypto.subtle.digest('sha256', bytes);
+		const resultBytes = [...new Uint8Array(digest)];
+		const hash = resultBytes.map((x) => x.toString(16).padStart(2, '0')).join('');
+		const cachedSummary = me?.root.mySummaries.find((summary) => summary?.hash === hash);
+
+		if (cachedSummary) {
+			console.log('Found an existing summary, not regenerating.');
+			summary = cachedSummary.content;
+			loading = false;
+			return;
+		}
+
 		const generated = await generateSummary(me.root.apiKey, moments);
 
 		summary = generated || 'There was an issue generating the summary. Please try again later.';
-
+		if (generated) {
+			const summaryObj = {
+				content: generated,
+				hash,
+				startDate: new Date(startDate),
+				endDate: endDateBoundary || new Date()
+			};
+			me?.root.mySummaries.push(Summary.create(summaryObj));
+		}
 		loading = false;
 	}
 
