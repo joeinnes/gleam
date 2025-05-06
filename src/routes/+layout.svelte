@@ -27,7 +27,7 @@
 	AccountSchema={GleamAccount}
 >
 	<main
-		class="text-primary container mx-auto flex min-h-screen max-w-xl flex-1 flex-col px-4 py-2 pb-18"
+		class="text-primary container mx-auto flex h-full min-h-screen max-w-xl flex-1 flex-col px-4 py-2 pb-18"
 	>
 		{@render children?.()}
 	</main>

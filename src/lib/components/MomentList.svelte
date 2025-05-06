@@ -29,7 +29,7 @@
 	let sortedDateKeys = $derived(Object.keys(groupedMoments));
 </script>
 
-<div class="flex h-full flex-col gap-2">
+<div class="flex h-full flex-1 flex-col justify-around gap-2">
 	{#if memories?.length}
 		<h1 class="text-base-content font-display pt-2 text-4xl">Moments</h1>
 	{/if}

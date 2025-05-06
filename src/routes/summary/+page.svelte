@@ -69,9 +69,11 @@
 			return;
 		}
 
-		const idString = moments.reduce((acc, moment) => (acc += moment.id), '');
+		const idString = moments
+			.sort((a, b) => a.id.localeCompare(b.id))
+			.reduce((acc, moment) => (acc += moment.id), '');
 		const bytes = new TextEncoder().encode(idString);
-		const digest = await window.crypto.subtle.digest('sha256', bytes);
+		const digest = await window.crypto.subtle.digest('SHA-256', bytes);
 		const resultBytes = [...new Uint8Array(digest)];
 		const hash = resultBytes.map((x) => x.toString(16).padStart(2, '0')).join('');
 		const cachedSummary = me?.root.mySummaries.find((summary) => summary?.hash === hash);
